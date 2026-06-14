@@ -35,6 +35,10 @@ async def upload_submission(
     with open(file_path, "wb") as f:
         f.write(contents)
 
+    import json
+    with open(os.path.join(save_dir, "_meta.json"), "w") as f:
+        json.dump({"team_name": team_name, "submission_id": submission_id}, f)
+
     return {
         "submission_id": submission_id,
         "team_name": team_name,

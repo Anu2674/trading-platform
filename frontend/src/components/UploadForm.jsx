@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8001'
 
 export default function UploadForm() {
   const [teamName, setTeamName] = useState('')
@@ -32,7 +32,7 @@ export default function UploadForm() {
       } else { setResult(data); setStatus('error') }
     } catch {
       setStatus('error')
-      setResult({ detail: 'Cannot connect to backend. Is it running on port 8000?' })
+      setResult({ detail: 'Cannot connect to backend. Is it running on port 8001?' })
     }
   }
 

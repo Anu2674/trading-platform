@@ -82,7 +82,7 @@ export default function Leaderboard() {
                   color: '#4ade80', fontWeight: 800,
                   fontFamily: 'monospace', fontSize: '15px'
                 }}>
-                  {parseFloat(s.total_score || 0).toFixed(1)}
+                  {parseFloat(s.total_score || s.score || 0).toFixed(1)}
                 </span>
               </td>
               <td style={{ padding: '14px 12px', textAlign: 'right', color: '#94a3b8', fontFamily: 'monospace' }}>

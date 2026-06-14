@@ -32,6 +32,14 @@ async def run_benchmark(submission_id: str):
     # Assign a unique port for this sandbox (avoid conflicts)
     host_port = 9000 + (hash(submission_id) % 1000)
 
+    # Read team name saved during upload
+    import json as _json
+    meta_path = os.path.join(submission_path, "_meta.json")
+    team_name = "Unknown"
+    if os.path.exists(meta_path):
+        with open(meta_path) as f:
+            team_name = _json.load(f).get("team_name", "Unknown")
+
     # Start sandbox container
     sandbox_info = run_sandbox(submission_id, file_path, host_port)
 
@@ -41,6 +49,7 @@ async def run_benchmark(submission_id: str):
     # Publish to Redis so frontend knows benchmark started
     r.hset(f"benchmark:{submission_id}", mapping={
         "submission_id": submission_id,
+        "team_name": team_name,
         "status": "running",
         "host_port": str(host_port),
         "p50": "0", "p90": "0", "p99": "0",
