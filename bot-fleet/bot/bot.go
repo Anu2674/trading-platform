@@ -11,7 +11,6 @@ import (
 	"github.com/google/uuid"
 )
 
-// Bot personalities — each simulates a different market participant
 const (
 	PersonalityMarketMaker      = "market_maker"
 	PersonalityAggressiveBuyer  = "aggressive_buyer"
@@ -38,7 +37,6 @@ func NewBot(id int, targetURL, submissionID string) *Bot {
 	}
 }
 
-// SendOrder sends one order and returns the metric (latency + result)
 func (b *Bot) SendOrder() (*BotMetric, error) {
 	order := b.generateOrder()
 

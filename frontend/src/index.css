@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #050508;
+  color: #e2e8f0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+.glow-green {
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.15);
+}
+
+.card {
+  background: #0d0d18;
+  border: 1px solid #1e2035;
+  border-radius: 12px;
+}
+
+.pulse-dot {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
