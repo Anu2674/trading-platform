@@ -48,14 +48,15 @@ export default function Leaderboard() {
       </div>
 
       {/* Table */}
-      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+      <div style={{ overflowX: 'auto' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', minWidth: '620px' }}>
         <thead>
           <tr style={{ borderBottom: '1px solid #1e2035' }}>
-            {['#', 'Team', 'Score', 'TPS', 'p99 ms', 'Correctness', 'Status'].map(h => (
+            {['#', 'Team', 'Score', 'TPS', 'p99ms', 'Correct%', 'Status'].map(h => (
               <th key={h} style={{
-                padding: '12px 16px',
+                padding: '10px 12px',
                 textAlign: h === '#' || h === 'Team' ? 'left' : h === 'Status' ? 'center' : 'right',
-                color: '#4a5568', fontSize: '11px',
+                color: '#4a5568', fontSize: '10px',
                 fontWeight: 600, letterSpacing: '0.08em',
                 textTransform: 'uppercase',
                 whiteSpace: 'nowrap',
@@ -70,40 +71,41 @@ export default function Leaderboard() {
               background: i === 0 ? 'rgba(74,222,128,0.03)' : 'transparent',
               transition: 'background 0.2s',
             }}>
-              <td style={{ padding: '16px 20px', color: '#64748b', fontFamily: 'monospace' }}>
+              <td style={{ padding: '14px 12px', color: '#64748b', fontFamily: 'monospace', whiteSpace: 'nowrap' }}>
                 {MEDALS[i] || `#${i + 1}`}
               </td>
-              <td style={{ padding: '16px 20px' }}>
+              <td style={{ padding: '14px 12px' }}>
                 <span style={{ color: '#fff', fontWeight: 600 }}>{s.team_name}</span>
               </td>
-              <td style={{ padding: '16px 20px', textAlign: 'right' }}>
+              <td style={{ padding: '14px 12px', textAlign: 'right' }}>
                 <span style={{
                   color: '#4ade80', fontWeight: 800,
-                  fontFamily: 'monospace', fontSize: '16px'
+                  fontFamily: 'monospace', fontSize: '15px'
                 }}>
                   {parseFloat(s.total_score || 0).toFixed(1)}
                 </span>
               </td>
-              <td style={{ padding: '16px 20px', textAlign: 'right', color: '#94a3b8', fontFamily: 'monospace' }}>
+              <td style={{ padding: '14px 12px', textAlign: 'right', color: '#94a3b8', fontFamily: 'monospace' }}>
                 {parseFloat(s.tps || 0).toFixed(0)}
               </td>
-              <td style={{ padding: '16px 20px', textAlign: 'right', fontFamily: 'monospace' }}>
+              <td style={{ padding: '14px 12px', textAlign: 'right', fontFamily: 'monospace' }}>
                 <span style={{ color: getLatencyColor(s.p99_latency || s.p99 || 0) }}>
                   {parseFloat(s.p99_latency || s.p99 || 0).toFixed(1)}
                 </span>
               </td>
-              <td style={{ padding: '16px 20px', textAlign: 'right', fontFamily: 'monospace' }}>
+              <td style={{ padding: '14px 12px', textAlign: 'right', fontFamily: 'monospace' }}>
                 <span style={{ color: parseFloat(s.correctness || 0) >= 90 ? '#4ade80' : '#fbbf24' }}>
                   {parseFloat(s.correctness || 0).toFixed(1)}%
                 </span>
               </td>
-              <td style={{ padding: '12px 16px', textAlign: 'center', whiteSpace: 'nowrap' }}>
+              <td style={{ padding: '10px 12px', textAlign: 'center', whiteSpace: 'nowrap' }}>
                 <StatusBadge status={s.status} />
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   )
 }

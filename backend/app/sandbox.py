@@ -1,5 +1,6 @@
 import docker
 import os
+import shutil
 
 client = docker.from_env()
 
@@ -8,6 +9,8 @@ MEMORY_LIMIT   = "512m"
 CPU_QUOTA      = 200000
 CONTAINER_PORT = 8888
 
+_ENGINE_SRC = os.path.join(os.path.dirname(__file__), 'sample_engine.py')
+
 
 def run_sandbox(submission_id: str, file_path: str, host_port: int = 9000) -> dict:
     try:
@@ -15,10 +18,13 @@ def run_sandbox(submission_id: str, file_path: str, host_port: int = 9000) -> di
 
         upload_dir = os.path.abspath(os.path.dirname(file_path))
 
+        # Inject the reference trading engine so the container has a real /order endpoint
+        shutil.copy(_ENGINE_SRC, os.path.join(upload_dir, 'engine.py'))
+
         container = client.containers.run(
             image=SANDBOX_IMAGE,
             name=f"sandbox_{submission_id[:8]}",
-            command="sleep 300",
+            command="python /submission/engine.py",
             detach=True,
             mem_limit=MEMORY_LIMIT,
             cpu_quota=CPU_QUOTA,
